@@ -6,18 +6,16 @@ use App\Models\Persona;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas; // <--- Importar esto
-
-class PersonasImport implements ToModel, WithHeadingRow, WithCalculatedFormulas // <--- Implementar esto
+class PersonasImport implements ToModel, WithHeadingRow, WithCalculatedFormulas // Celdas con logica interna
 {
     public function model(array $row)
     {
-        // Limpieza de datos: evitamos filas vacías o encabezados mal leídos
+        // Evitar Celdas vacias o campos mal leidos
         if (!isset($row['edad']) || $row['edad'] === null) {
             return null;
         }
-
         return new Persona([
-            'edad'                 => (int) $row['edad'], // Forzamos a entero por seguridad
+            'edad'                 => (int) $row['edad'], // Se fuerza edad a  entero
             'sexo'                 => $row['sexo'],
             'estado_civil'         => $row['estado_civil'],
             'departamento'         => $row['departamento'],
