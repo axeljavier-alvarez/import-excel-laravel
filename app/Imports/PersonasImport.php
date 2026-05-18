@@ -18,7 +18,7 @@ class PersonasImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             return null;
         }
 
-        // FORMATEAR MARCA TEMPORAL (Fecha y Hora)
+        // FORMATEAR MARCA TEMPORAL (Fecha y Hora)  
         $marcaTemporal = null;
         if (!empty($row['marca_temporal'])) {
             if (is_numeric($row['marca_temporal'])) {
@@ -39,12 +39,19 @@ class PersonasImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
                 $fechaNacimiento = $row['fecha_de_nacimiento'];
             }
         }
-
-        // ESCANEAR MUNICIPIOS
+        /**
+         * Escáner Dinámico de Columnas Condicionales para Municipio.
+         * Recorre todas las columnas de la fila actual buscando variaciones generadas por formularios condicionales.
+         */
         $municipioDetectado = null;
-        foreach ($row as $columna => $valor) {
-            if (str_starts_with($columna, 'municipio') && !empty($valor)) {
-                $municipioDetectado = $valor;
+        // 1. Recorremos toda la fila actual asociando el nombre de la columna ($columna) con su celda ($valor)
+        foreach ($row as $columna => $valor) {            
+            // 2. Condición: ¿El nombre de la columna empieza exactamente con la palabra 'municipio'? 
+            // Y además, ¿el usuario ingresó algún texto en esa opción específica?
+            if (str_starts_with($columna, 'municipio') && !empty($valor)) {                
+                // 3. Al encontrar la columna activa, guarda el municipio seleccionado
+                $municipioDetectado = $valor;                
+                // 4. Detiene el bucle (break) para optimizar memoria al haber hallado la respuesta correcta
                 break; 
             }
         }
