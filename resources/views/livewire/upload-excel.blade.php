@@ -27,7 +27,6 @@
                     {{ session('message') }}
                 </div>
             @endif
-
             <!-- Error -->
             @if (session()->has('error'))
                 <div class="p-4 text-sm text-red-800 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
@@ -35,12 +34,9 @@
                     {{ session('error') }}
                 </div>
             @endif
-
             <form wire:submit.prevent="import" class="space-y-4">
-
                 <!-- Upload -->
                 <div class="relative">
-
                     <label
                         for="file-upload"
                         class="group flex flex-col items-center justify-center h-40 p-4 text-center border-2 border-dashed rounded-xl cursor-pointer transition
@@ -49,7 +45,6 @@
                             : 'border-gray-300 bg-gray-50 hover:border-blue-500 hover:bg-gray-100'
                         }}"
                     >
-
                         <svg
                             class="w-10 h-10 mb-3 transition text-gray-400 group-hover:text-blue-500"
                             fill="none"
@@ -63,29 +58,21 @@
                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                             />
                         </svg>
-
                         @if ($file)
-
                             <p class="text-sm font-semibold text-blue-700 truncate max-w-xs">
                                 {{ $file->getClientOriginalName() }}
                             </p>
-
                             <p class="text-xs text-blue-500 mt-1">
                                 Haga clic para cambiar el archivo
                             </p>
-
                         @else
-
                             <p class="text-sm font-medium text-gray-600">
                                 Haga clic para buscar o arrastre el archivo
                             </p>
-
                             <p class="text-xs text-gray-400 mt-1">
                                 EXCEL (.xlsx) o CSV — Máx. 10MB
                             </p>
-
                         @endif
-
                         <input
                             id="file-upload"
                             type="file"
@@ -93,7 +80,6 @@
                             class="hidden"
                         />
                     </label>
-
                     <!-- Remove File -->
                     @if ($file)
                         <button
